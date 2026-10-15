@@ -4,7 +4,19 @@ A static, framework-free portfolio. Scrolling takes a pixel miner down through t
 
 ## Editing content
 
-All content is in [`js/data.js`](js/data.js): profile, experience, skills and projects ("worlds"). The full page and the Quick look are both rendered from it.
+All content is in [`js/data.js`](js/data.js): profile, experience, skills and projects ("worlds"). The full page and the Quick look are both rendered from it by [`js/render.js`](js/render.js).
+
+### Prerendering (SEO)
+
+The rendered sections and the JSON-LD `Person` data are also baked into `index.html`, so search engines and link previews see the content without running JavaScript. After editing `js/data.js` (or the canonical URL), run:
+
+```bash
+node scripts/prerender.mjs
+```
+
+`node scripts/prerender.mjs --check` exits with an error if `index.html` is out of date. The page still renders from `data.js` in the browser, so visitors never see stale content. Only crawlers would.
+
+The JSON-LD `url` comes from `<link rel="canonical">` in `index.html`. When the domain changes, update that tag (plus `og:url` and `og:image`) and re-run the script.
 
 ### Screenshots and recordings
 
