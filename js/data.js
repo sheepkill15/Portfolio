@@ -29,7 +29,7 @@ window.PORTFOLIO = {
 
   // Formspree (or similar) endpoint, e.g. 'https://formspree.io/f/abcdwxyz'.
   // Leave empty and the contact form falls back to opening the visitor's mail app.
-  formEndpoint: '',
+  formEndpoint: 'https://formspree.io/f/xnpjlpqy',
 
   highlights: [
     { big: '1.5 yrs', text: 'as the sole full-stack engineer on an AI-first B2B CRM/ERP: Rails, React, TypeScript and PostgreSQL, end to end' },
