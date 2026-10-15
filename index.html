@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Simon Aron · Full-Stack Software Engineer</title>
+  <meta name="description" content="Simon Aron: full-stack software engineer building B2B products and AI systems with Rails, React and TypeScript, and side projects all the way down to the metal.">
+  <meta name="theme-color" content="#0a0912">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Simon Aron · Full-Stack Software Engineer">
+  <meta property="og:description" content="B2B products & AI systems by day. Window managers, compilers, GPU sims and synth firmware by night.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Pixelify+Sans:wght@500;700&family=Silkscreen&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/pixel.js" defer></script>
+  <script src="js/scene.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#experience">Skip to content</a>
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <header class="hud" id="hud">
+    <div class="hud-row">
+      <a class="brand" href="#top" aria-label="Simon Aron, back to top">
+        <canvas class="brand-mark" width="12" height="16" aria-hidden="true"></canvas>
+        <span>SIMON ARON</span>
+      </a>
+      <p class="depth" aria-hidden="true">
+        <span class="depth-arrow">▼</span><span id="depth-m">0000</span>m
+        <span class="depth-sep">·</span>
+        <span id="depth-name">Surface</span>
+      </p>
+      <nav class="hud-nav" aria-label="Sections">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#profile">Profile</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="hud-actions">
+        <a class="btn btn-sm" href="#quick" id="quick-toggle">Quick look</a>
+        <a class="btn btn-sm btn-ghost hide-sm" href="assets/Simon_Aron_Resume.pdf" download>Résumé</a>
+        <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mnav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="hud-progress" aria-hidden="true">
+      <span class="hud-bar" id="hud-bar"></span>
+      <canvas class="hud-miner" id="hud-miner" width="12" height="16"></canvas>
+    </div>
+    <nav class="mnav" id="mnav" aria-label="Sections" hidden>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#profile">Profile</a>
+      <a href="#contact">Contact</a>
+      <a href="assets/Simon_Aron_Resume.pdf" download>Download résumé (PDF)</a>
+    </nav>
+  </header>
+
+  <main id="game">
+    <!-- SURFACE -->
+    <section class="hero" id="top" data-theme="sky" data-name="Surface" style="--w:#ffcc33">
+      <div class="wrap hero-inner">
+        <p class="kicker"><span class="blink">●</span> PLAYER 1 · Târgu Mureș, Romania</p>
+        <h1 class="title">Simon<br>Aron</h1>
+        <p class="role">Full-Stack Software Engineer</p>
+        <p class="sub">I build B2B products and AI systems with Rails, React and TypeScript. In my own time I go all the way down the stack: window managers, compilers, GPU simulations and synth firmware.</p>
+        <nav class="menu" aria-label="Start">
+          <a class="menu-item" href="#experience"><span class="mi-label">Start</span><span class="mi-plain">Experience &amp; projects</span></a>
+          <a class="menu-item" href="#quick"><span class="mi-label">Quick look</span><span class="mi-plain">Everything on one page</span></a>
+          <a class="menu-item" href="assets/Simon_Aron_Resume.pdf" download><span class="mi-label">Résumé</span><span class="mi-plain">PDF download</span></a>
+          <a class="menu-item" href="#contact"><span class="mi-label">Contact</span><span class="mi-plain">Get in touch</span></a>
+        </nav>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">SCROLL TO DESCEND <span>▼</span></p>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section class="highlights" data-theme="soil" data-name="Topsoil" style="--w:#ffb35c" aria-label="Highlights">
+      <div class="wrap">
+        <ul class="unlocks" id="unlocks"></ul>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience" data-theme="soil" data-name="Quest log" style="--w:#ffb35c">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker">QUEST LOG</p>
+          <h2>Experience</h2>
+        </header>
+        <ol class="quests" id="quests"></ol>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <div id="projects">
+      <section class="section level-select" data-theme="cloud" data-name="Level select" style="--w:#ffcc33" aria-labelledby="ls-title">
+        <div class="wrap">
+          <header class="sec-head">
+            <p class="kicker">LEVEL SELECT</p>
+            <h2 id="ls-title">Projects</h2>
+            <p class="plain">Personal projects, ordered from the top of the stack down to the hardware. <span class="nowrap"><b class="boss-dot">◆ Boss</b> = biggest builds.</span></p>
+          </header>
+          <ol class="lvl-grid" id="lvl-grid"></ol>
+        </div>
+      </section>
+      <div id="worlds"></div>
+    </div>
+
+    <!-- PROFILE -->
+    <section class="section" id="profile" data-theme="deep" data-name="Character sheet" style="--w:#c9a6ff">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker">CHARACTER SHEET</p>
+          <h2>Profile &amp; skills</h2>
+        </header>
+        <div class="sheet" id="sheet"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact" id="contact" data-theme="save" data-name="Save point" style="--w:#ff9e4a">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker">SAVE POINT</p>
+          <h2>Contact</h2>
+          <p class="plain">You made it to the bottom. Leave a message, or reach me directly.</p>
+        </header>
+        <div class="contact-grid">
+          <ul class="direct" id="direct"></ul>
+          <form class="form px" id="contact-form" novalidate>
+            <label>Name<input name="name" autocomplete="name" required></label>
+            <label>Email<input name="email" type="email" autocomplete="email" required></label>
+            <label>Message<textarea name="message" rows="5" required></textarea></label>
+            <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="form-foot">
+              <button class="btn" type="submit">Send message</button>
+              <p class="form-status" id="form-status" role="status"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="wrap">
+        <p>© <span id="year">2026</span> Simon Aron · Pixels drawn in code, no frameworks.</p>
+        <p class="secret" aria-hidden="true">↑ ↑ ↓ ↓ ← → ← → B A</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- QUICK LOOK -->
+  <main id="quick" class="quick" hidden aria-label="Quick look"></main>
+
+  <noscript>
+    <p class="noscript">This page needs JavaScript for the full experience. Here is the <a href="assets/Simon_Aron_Resume.pdf">résumé (PDF)</a>, and you can reach me at simonarons15@gmail.com.</p>
+  </noscript>
+</body>
+</html>
