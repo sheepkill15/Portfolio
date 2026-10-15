@@ -1,0 +1,14 @@
+;; GitHub Pages apex records for simonaron.dev (BIND format, for Cloudflare DNS import).
+;; Cloudflare: DNS -> Records -> Import and Export -> Import. Leave "Proxy imported DNS records" unchecked.
+$ORIGIN simonaron.dev.
+$TTL 3600
+
+simonaron.dev.	3600	IN	A	185.199.108.153 ; cf_tags=cf-proxied:false
+simonaron.dev.	3600	IN	A	185.199.109.153 ; cf_tags=cf-proxied:false
+simonaron.dev.	3600	IN	A	185.199.110.153 ; cf_tags=cf-proxied:false
+simonaron.dev.	3600	IN	A	185.199.111.153 ; cf_tags=cf-proxied:false
+
+simonaron.dev.	3600	IN	AAAA	2606:50c0:8000::153 ; cf_tags=cf-proxied:false
+simonaron.dev.	3600	IN	AAAA	2606:50c0:8001::153 ; cf_tags=cf-proxied:false
+simonaron.dev.	3600	IN	AAAA	2606:50c0:8002::153 ; cf_tags=cf-proxied:false
+simonaron.dev.	3600	IN	AAAA	2606:50c0:8003::153 ; cf_tags=cf-proxied:false

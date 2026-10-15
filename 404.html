@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dead end · Simon Aron</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0912">
+  <!-- GitHub Pages serves this file for any missing path, at any depth, so every URL here is root-absolute. -->
+  <link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Pixelify+Sans:wght@500;700&family=Silkscreen&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=21">
+  <style>
+    body {
+      min-height: 100vh; min-height: 100svh; display: grid; place-items: center;
+      /* A few fixed pixel stars, so the page matches the site without loading the scene script. */
+      background:
+        linear-gradient(#fff 0 0) 12% 18% / 3px 3px no-repeat,
+        linear-gradient(#c9a6ff 0 0) 83% 12% / 3px 3px no-repeat,
+        linear-gradient(#fff 0 0) 72% 34% / 2px 2px no-repeat,
+        linear-gradient(#fff 0 0) 27% 71% / 2px 2px no-repeat,
+        linear-gradient(#c9a6ff 0 0) 91% 64% / 3px 3px no-repeat,
+        linear-gradient(#fff 0 0) 6% 52% / 2px 2px no-repeat,
+        linear-gradient(#fff 0 0) 58% 88% / 3px 3px no-repeat,
+        linear-gradient(#fff 0 0) 40% 9% / 2px 2px no-repeat,
+        linear-gradient(180deg, var(--bg) 40%, #1a1433);
+    }
+    .lost { padding: 48px 0; }
+    .lost .title { font-size: clamp(88px, 22vw, 180px); }
+    .lost .sub { margin-top: 22px; }
+    .lost-row { display: flex; align-items: center; gap: 22px; margin-top: 30px; flex-wrap: wrap; }
+    .lost-avatar { width: 72px; height: 72px; image-rendering: pixelated; }
+    .lost-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <main class="wrap lost">
+    <p class="kicker">ERROR 404 · DEAD END</p>
+    <h1 class="title">404</h1>
+    <p class="role">This tunnel doesn't go anywhere.</p>
+    <p class="sub">The page you were digging for isn't here. It may have moved, or the link has a typo.</p>
+    <div class="lost-row">
+      <img class="lost-avatar px" src="/assets/apple-touch-icon.png" alt="" width="72" height="72">
+      <div class="lost-actions">
+        <a class="btn" href="/">Back to the surface</a>
+        <a class="btn btn-ghost" href="/#quick">Quick look</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
