@@ -16,7 +16,7 @@ node scripts/prerender.mjs
 
 `node scripts/prerender.mjs --check` exits with an error if `index.html` is out of date. The page still renders from `data.js` in the browser, so visitors never see stale content. Only crawlers would.
 
-The JSON-LD `url` comes from `<link rel="canonical">` in `index.html`. When the domain changes, update that tag (plus `og:url` and `og:image`) and re-run the script.
+The JSON-LD `url` comes from `<link rel="canonical">` in `index.html` (see [Deploying](#deploying) for every place the domain appears).
 
 ### Screenshots and recordings
 
@@ -40,10 +40,14 @@ python -m http.server 5173
 
 Then open http://localhost:5173.
 
-## Deploying to GitHub Pages
+## Deploying
 
-1. Push this folder to a repo (e.g. `sheepkill15.github.io` for a root URL).
-2. Go to **Settings → Pages → Deploy from a branch**, then pick `main` / root.
-3. For a custom domain later, add it under **Settings → Pages** (this creates a `CNAME` file).
+Live at **https://simonaron.dev**, served by GitHub Pages from `master` / root. The custom domain is set under **Settings → Pages**, which keeps the `CNAME` file in sync.
 
 `.nojekyll` is included so GitHub Pages serves the files as-is.
+
+The domain is written in a few places. If it ever changes, update them all and re-run the prerender:
+
+- `index.html`: `<link rel="canonical">`, `og:url` and `og:image` (JSON-LD picks up the canonical URL)
+- `robots.txt` and `sitemap.xml`
+- `CNAME` (via **Settings → Pages**)
