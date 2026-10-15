@@ -236,6 +236,15 @@
   route();
   if (!document.body.classList.contains('is-quick')) scene.start();
 
+  // Worlds are rendered by script, so the browser can't jump to e.g. #world-shell on its own.
+  const target = location.hash.length > 1 && location.hash !== '#quick' && document.getElementById(location.hash.slice(1));
+  if (target) {
+    const jump = () => target.scrollIntoView({ behavior: 'instant' });
+    jump();
+    // Fonts and images can shift the layout until load; land on the section again once they're in.
+    window.addEventListener('load', jump, { once: true });
+  }
+
   /* ---------- HUD: depth, progress, active link ---------- */
 
   const depthM = $('#depth-m'), depthName = $('#depth-name'), bar = $('#hud-bar'), hud = $('#hud');

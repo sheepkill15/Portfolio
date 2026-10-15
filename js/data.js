@@ -96,7 +96,7 @@ window.PORTFOLIO = {
       id: 'cloud', n: 1, name: 'The Cloud', plain: 'AI & product', color: '#b794ff',
       projects: [
         {
-          id: 'omnidesign', name: 'OmniDesign', boss: true, shot: null,
+          id: 'omnidesign', name: 'OmniDesign', boss: true, shot: 'omnidesign.webp',
           pitch: 'An AI design tool that turns prompts into multi-page UI designs, powered by the AI coding agents people already pay for.',
           loot: [
             'Drives locally installed Claude Code, Codex and similar tools, so users bring their existing subscriptions instead of another API bill.',
@@ -119,7 +119,7 @@ window.PORTFOLIO = {
       id: 'desktop', n: 2, name: 'The Desktop', plain: 'Desktop & mobile apps', color: '#6fb7ff',
       projects: [
         {
-          id: 'woc', name: 'Windows Orphan Cleaner', boss: true, shot: null,
+          id: 'woc', name: 'Windows Orphan Cleaner', boss: true, shot: 'woc.webp',
           pitch: 'Ownership-aware cleanup for Windows 10/11 that links leftover application data to the software that created it.',
           loot: [
             'Explains every conclusion and never deletes directly: cleanup goes to a restorable quarantine, only after review.',
@@ -131,19 +131,7 @@ window.PORTFOLIO = {
           links: [{ label: 'Source', url: 'https://github.com/sheepkill15/WOC' }],
         },
         {
-          id: 'animerelay', name: 'Anime Relay', boss: true, shot: null,
-          pitch: 'A Windows tray app that automatically logs finished anime episodes to MyAnimeList, whether you watch in the browser, in Plex or in a local player.',
-          loot: [
-            'Browser extension tracks generic HTML5 video across changing streaming sites, merging metadata across embedded player frames.',
-            'Also follows Plex playback logs and detects VLC, mpv, MPC-HC and PotPlayer.',
-            'MyAnimeList OAuth with token refresh, duplicate-event protection and a rule that never lowers your progress.',
-            'Secrets encrypted at rest with Electron safeStorage; optional Discord Rich Presence.',
-          ],
-          tags: ['TypeScript', 'Electron', 'Browser extension', 'OAuth'],
-          links: [{ label: 'Source', url: 'https://github.com/sheepkill15/AnimeRelay' }],
-        },
-        {
-          id: 'memlib', name: 'Memlib', boss: true, shot: null,
+          id: 'memlib', name: 'Memlib', boss: true, shot: 'memlib.webp',
           pitch: 'A personal sticker and GIF library for Windows and Android that pastes right where you are already typing.',
           loot: [
             'Global Ctrl+Alt+V picker on Windows: type to search, Enter to paste back into the previously focused app.',
@@ -171,7 +159,7 @@ window.PORTFOLIO = {
       id: 'shell', n: 3, name: 'The Shell', plain: 'Operating systems & window managers', color: '#4ff0cc',
       projects: [
         {
-          id: 'altdwm', name: 'AltDWM', boss: true, shot: null,
+          id: 'altdwm', name: 'AltDWM', boss: true, shot: 'altdwm.webp',
           pitch: 'An experimental Windows 11 shell and tiling window manager, proving Explorer can be replaced without touching dwm.exe.',
           loot: [
             'Event-driven tiling through SetWinEventHook and atomic DeferWindowPos batches, per monitor.',
@@ -206,7 +194,7 @@ window.PORTFOLIO = {
       id: 'tool', n: 4, name: 'The Toolchain', plain: 'Developer tools & compilers', color: '#8dff6e',
       projects: [
         {
-          id: 'projcpp', name: 'ProjCpp', boss: true, shot: null,
+          id: 'projcpp', name: 'ProjCpp', boss: true, shot: 'projcpp.webp',
           pitch: 'A VS Code extension that takes beginners from zero to a running C++ program with one click.',
           loot: [
             'Published on the Visual Studio Code Marketplace.',
@@ -220,7 +208,7 @@ window.PORTFOLIO = {
           ],
         },
         {
-          id: 'langron', name: 'Langron', boss: true, shot: null,
+          id: 'langron', name: 'Langron', boss: true, shot: 'langron.webp',
           pitch: 'My own programming language, written from scratch in C++ with an LLVM backend.',
           loot: [
             'Hand-written lexer and parser producing an abstract syntax tree.',
@@ -265,7 +253,7 @@ window.PORTFOLIO = {
       id: 'metal', n: 6, name: 'The Metal', plain: 'Embedded & hardware', color: '#ff9147',
       projects: [
         {
-          id: 'piyano', name: 'Piyano', boss: true, shot: null,
+          id: 'piyano', name: 'Piyano', boss: true, shot: 'piyano.webp',
           pitch: 'ESP32 firmware that turns any USB MIDI keyboard into a standalone synthesizer, built to see how cheaply a playable instrument can be made.',
           loot: [
             'Acts as a USB MIDI host and renders stereo audio over I²S to a DAC.',
