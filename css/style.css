@@ -92,7 +92,7 @@ b, strong { font-weight: 600; }
 }
 @media (min-width: 760px) { .hud-row { padding-inline: 20px; } }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 18px/1 var(--f-pixel); letter-spacing: 0.04em; white-space: nowrap; }
-.brand-mark { width: 18px; height: 24px; image-rendering: pixelated; }
+.brand-mark { width: 16px; height: 25px; image-rendering: pixelated; }
 .depth {
   margin: 0; flex: 1; min-width: 0;
   font: 400 12px/1 var(--f-label); color: var(--muted);
@@ -117,7 +117,7 @@ b, strong { font-weight: 600; }
 .mnav a:last-child { border: 0; color: var(--w); }
 .hud-progress { position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; }
 .hud-bar { position: absolute; inset: 0 auto 0 0; width: 100%; transform-origin: left; transform: scaleX(0); background: var(--w); transition: background-color 0.4s; }
-.hud-miner { position: absolute; top: -10px; left: 0; width: 15px; height: 20px; image-rendering: pixelated; }
+.hud-miner { position: absolute; top: -12px; left: 0; width: 18px; height: 24px; image-rendering: pixelated; }
 
 @media (max-width: 559px) {
   .depth-sep, #depth-name { display: none; }
@@ -162,7 +162,13 @@ b, strong { font-weight: 600; }
   padding: 10px 14px 10px 36px; min-height: 48px; text-decoration: none;
   background: rgba(10, 9, 18, 0.55);
 }
-.menu-item::before { content: '▶'; position: absolute; left: 12px; top: 13px; font-size: 14px; color: var(--w); opacity: 0; }
+.menu-item::before {
+  /* Pixel-art cursor: a 4×7 stepped triangle used as a mask, so it takes the accent colour. */
+  content: ''; position: absolute; left: 13px; top: 50%; width: 8px; height: 14px; margin-top: -7px;
+  background: var(--w); opacity: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v7H0zM1 1h1v5H1zM2 2h1v3H2zM3 3h1v1H3z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v7H0zM1 1h1v5H1zM2 2h1v3H2zM3 3h1v1H3z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
 .menu-item:hover::before, .menu-item:focus-visible::before { opacity: 1; }
 .menu-item:hover, .menu-item:focus-visible { background: rgba(255, 204, 51, 0.12); outline: none; }
 .menu-item:focus-visible { box-shadow: inset 0 0 0 2px var(--w); }
@@ -185,7 +191,11 @@ b, strong { font-weight: 600; }
 .unlocks { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
 @media (min-width: 640px) { .unlocks { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
 @media (min-width: 1100px) { .unlocks { grid-template-columns: repeat(4, 1fr); } }
-.unlock { --bd: color-mix(in srgb, var(--w) 45%, var(--line)); padding: 18px 20px; display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: start; }
+.unlock {
+  --bd: color-mix(in srgb, var(--w) 45%, var(--line)); padding: 18px 20px;
+  /* Content stays pinned to the top, so equal-height cards line up row for row. */
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto 1fr; align-content: start; gap: 4px 14px; align-items: start;
+}
 .unlock svg { grid-row: span 2; width: 32px; height: 32px; margin-top: 2px; }
 .unlock-tag { font: 400 11px/1.2 var(--f-label); color: var(--w); letter-spacing: 0.05em; }
 .unlock-big { font: 600 30px/1 var(--f-mono); letter-spacing: -0.01em; }
@@ -277,7 +287,7 @@ b, strong { font-weight: 600; }
 @media (min-width: 860px) { .sheet { grid-template-columns: 300px 1fr; align-items: start; } }
 .card { padding: 22px; }
 .avatar-card { text-align: center; }
-.avatar { width: 108px; height: 144px; margin: 4px auto 14px; image-rendering: pixelated; }
+.avatar { width: 108px; height: 171px; margin: 4px auto 14px; image-rendering: pixelated; }
 .avatar-card h3 { margin: 0; font: 700 26px/1.1 var(--f-pixel); }
 .stats { margin: 16px 0 0; display: grid; gap: 8px; text-align: left; }
 .stats div { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--line2); font-size: 14px; }

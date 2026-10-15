@@ -1,53 +1,67 @@
 /* Sprites as character grids. Each sprite gets a 1px dark outline added automatically. */
 (function () {
+  // Drawn after Simon: dark brown swept-up hair, blue-grey eyes, stubble,
+  // navy blazer over a burgundy shirt with a striped tie.
   const PAL = {
-    y: '#ffcc33', // helmet
-    w: '#fff6d2', // lamp
-    h: '#4a2f22', // hair
-    s: '#f0c08f', // skin
-    e: '#1a1020', // eyes
-    b: '#4f5fe0', // hoodie
-    d: '#3a47b0', // hoodie shade
-    p: '#2b2f4f', // trousers
-    k: '#17121f', // boots
+    h: '#3a281d', // hair
+    H: '#5c4130', // hair highlight
+    s: '#f2c9ad', // skin
+    S: '#dba98d', // skin shade (nose)
+    e: '#3b5878', // eyes
+    m: '#c98a86', // lips
+    b: '#9a7560', // stubble
+    n: '#24305a', // navy blazer
+    r: '#8e2238', // burgundy shirt
+    t: '#c63a52', // tie stripe
+    T: '#2a0f18', // tie stripe, dark
+    p: '#1b1b22', // trousers
+    k: '#0f0f14', // shoes
     o: '#07060d', // outline
   };
-  const GOLD = Object.assign({}, PAL, { b: '#e8a91c', d: '#b9800f', y: '#fff1a8' });
+  const GOLD = Object.assign({}, PAL, { n: '#d99a12', r: '#fff1a8', t: '#fff6d2', T: '#b9800f' });
 
   const FRONT = [
-    '...yyyy...',
-    '..yywwyy..',
-    '.yyyyyyyy.',
-    '..hssssh..',
-    '..sesses..',
-    '..ssssss..',
-    '...ssss...',
-    '..bbbbbb..',
-    '.bbbbbbbb.',
-    '.sbbddbbs.',
-    '..bbbbbb..',
+    '...hHhh...',
+    '..hhhHhhh.',
+    '.hhhhhhhh.',
+    '.hssssssh.',
+    '.ssessess.',
+    '..sssSss..',
+    '..bsmmsb..',
+    '...bbbb...',
+    '.nnrTTrnn.',
+    'nnnrtTrnnn',
+    'nnnrTtrnnn',
+    'nnnntTnnnn',
+    'nnnnTtnnnn',
+    's.nnnnnn.s',
     '..pp..pp..',
     '..pp..pp..',
     '.kkk..kkk.',
   ];
   const BLINK = FRONT.slice();
-  BLINK[4] = '..ssssss..';
+  BLINK[4] = '.ssssssss.';
 
+  // Seen from behind with the same head, torso and height as the front view. One hand grips the rail
+  // beside his ear, the other hangs at hip height; columns 1 and 10 line up with the ladder rails.
   const CLIMB = [
-    's..yyyy...',
-    'b.yyyyyy..',
-    'byyyyyyyy.',
-    'b.hhhhhh..',
-    '.bhhhhhh..',
-    '.bbhhhhbb.',
-    '..bbbbbbbb',
-    '..bbbbbbbs',
-    '..bbbbbb..',
-    '..bbbbbb..',
-    '..pp..pp..',
-    '..pp..pp..',
-    '..kk..pp..',
-    '......kk..',
+    '....hHhh....',
+    '...hhhHhhh..',
+    '..hhhhhhhh..',
+    '..hhhhhhhh..',
+    '.shhhhhhhh..',
+    '.nshhhhhhs..',
+    '.n.hhhhhh...',
+    '.n..ssss....',
+    '.nnnnnnnnn..',
+    '..nnnnnnnnn.',
+    '..nnnnnnnnn.',
+    '..nnnnnnnnn.',
+    '..nnnnnnnnn.',
+    '...nnnnnn.s.',
+    '...pp..pp...',
+    '...kk..pp...',
+    '.......kkk..',
   ];
 
   function prep(rows) {

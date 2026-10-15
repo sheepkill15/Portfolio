@@ -96,7 +96,7 @@
   const P = D.person;
   $('#sheet').innerHTML = `
     <aside class="card px avatar-card">
-      <canvas class="avatar" width="12" height="16" aria-hidden="true"></canvas>
+      <canvas class="avatar" width="12" height="19" aria-hidden="true"></canvas>
       <h3>${esc(P.name)}</h3>
       <dl class="stats">
         <div><dt>CLASS</dt><dd>${esc(P.role)}</dd></div>
@@ -251,7 +251,7 @@
       hud.style.setProperty('--w', getComputedStyle(cur).getPropertyValue('--w'));
     }
     bar.style.transform = `scaleX(${p})`;
-    hudMiner.style.transform = `translateX(${p * (window.innerWidth - 15)}px)`;
+    hudMiner.style.transform = `translateX(${p * (window.innerWidth - 18)}px)`;
     if (Math.abs(y - lastY) > 24) {
       minerFrame ^= 1;
       lastY = y;

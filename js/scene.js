@@ -339,12 +339,12 @@
       // The miner
       const pal = gold ? GOLD : PAL;
       if (wide) {
-        const standY = gW - 15;
+        const standY = gW - SPRITES.front.h;
         // Stays put on screen while the ground scrolls away, drifting up to mid-screen.
         const midY = standY - clamp(camY * 0.4, 0, Math.max(0, standY - H * 0.5));
         // Over the last stretch of the page he climbs down faster so his feet land on the floor at the very bottom.
         const remaining = camMax - camY, stretch = H * 0.6;
-        const landY = floorW - camY - 16;
+        const landY = floorW - camY - SPRITES.front.h;
         const y = Math.round(remaining < stretch ? midY + (landY - midY) * (1 - remaining / stretch) : midY);
         const onSurface = camY < 3 || remaining < 1;
         const lampY = y + 2;
@@ -353,11 +353,12 @@
         let spr;
         if (onSurface) spr = Math.sin(t * 0.9) > 0.97 ? SPRITES.blink : SPRITES.front;
         else spr = Math.floor(camY / 5) % 2 ? SPRITES.climbA : SPRITES.climbB;
-        drawSprite(ctx, spr, 8, y, pal);
+        // Both poses are centred on the ladder (rails at x = 10 and 19); the climbing frames are 2px wider.
+        drawSprite(ctx, spr, spr.w > SPRITES.front.w ? 8 : 9, y, pal);
       } else if (gS > 0 && gS < H + 20) {
         const x = Math.floor(W * 0.12);
         const spr = Math.sin(t * 0.9) > 0.97 ? SPRITES.blink : SPRITES.front;
-        drawSprite(ctx, spr, x, gS - 15, pal);
+        drawSprite(ctx, spr, x, gS - SPRITES.front.h, pal);
       }
     }
 
