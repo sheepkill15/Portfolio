@@ -50,7 +50,7 @@
   function Scene(canvas, opts) {
     const ctx = canvas.getContext('2d', { alpha: false });
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let S, W, H, img, buf, mode, ridgeFar, ridgeNear, groundW;
+    let S, W, H, img, buf, mode, ridgeFar, ridgeNear, groundW, clear = null, camMax = 0, floorW = Infinity;
     let sections = [], tops = [];
     let particles = [];
     let lastCam = 0, lastT = 0, running = false, gold = false, dirty = true;
@@ -90,6 +90,15 @@
       tops = sections.map((el) => el.getBoundingClientRect().top + sy);
       const hero = sections[0];
       groundW = hero ? Math.floor(hero.offsetHeight / S) - 16 : H;
+      // Keep the sky behind the hero text free of stars so it stays readable.
+      const copy = Array.from(document.querySelectorAll('.hero-inner > *')).map((el) => el.getBoundingClientRect());
+      clear = copy.length
+        ? [Math.min(...copy.map((r) => r.left)), Math.min(...copy.map((r) => r.top + sy)), Math.max(...copy.map((r) => r.right)), Math.max(...copy.map((r) => r.bottom + sy))]
+            .map((v, i) => Math.round(v / S) + (i < 2 ? -6 : 6))
+        : null;
+      // The ladder ends on a floor that reaches the bottom of the screen exactly when the page is fully scrolled.
+      camMax = Math.max(0, (document.documentElement.scrollHeight - window.innerHeight) / S);
+      floorW = Math.floor(camMax) + H - 4;
       dirty = true;
     }
 
@@ -256,7 +265,8 @@
             else if (above < ridgeFar[x]) c = farC;
             else {
               const h = hash(x, wy);
-              c = h > 0.993 ? (hash(x + twinkleT, wy) > 0.35 ? starHi : starLo) : sky;
+              const hidden = clear && x >= clear[0] && x < clear[2] && wy >= clear[1] && wy < clear[3];
+              c = h > 0.993 && !hidden ? (hash(x + twinkleT, wy) > 0.35 ? starHi : starLo) : sky;
             }
             buf[base + x] = c;
           }
@@ -269,7 +279,8 @@
         for (let x = 0; x < W; x++) {
           let c;
           if (wide && x >= SX0 && x < SX1) {
-            if (x === SX0 || x === SX1 - 1) c = rockD;
+            if (wy >= floorW) c = wy < floorW + 2 ? rung : rockD;
+            else if (x === SX0 || x === SX1 - 1) c = rockD;
             else if (x === RX0 || x === RX1) c = rail;
             else if (rungRow && x > RX0 && x < RX1) c = rung;
             else c = hash(x >> 1, wy >> 1) > 0.94 ? shaftSpeck : shaftBg;
@@ -330,8 +341,12 @@
       if (wide) {
         const standY = gW - 15;
         // Stays put on screen while the ground scrolls away, drifting up to mid-screen.
-        const y = Math.round(standY - clamp(camY * 0.4, 0, Math.max(0, standY - H * 0.5)));
-        const onSurface = camY < 3;
+        const midY = standY - clamp(camY * 0.4, 0, Math.max(0, standY - H * 0.5));
+        // Over the last stretch of the page he climbs down faster so his feet land on the floor at the very bottom.
+        const remaining = camMax - camY, stretch = H * 0.6;
+        const landY = floorW - camY - 16;
+        const y = Math.round(remaining < stretch ? midY + (landY - midY) * (1 - remaining / stretch) : midY);
+        const onSurface = camY < 3 || remaining < 1;
         const lampY = y + 2;
         pixelCircle(14, lampY, 20, rgba([255, 214, 120], 0.035));
         pixelCircle(14, lampY, 12, rgba([255, 214, 120], 0.05));
@@ -364,6 +379,7 @@
     window.addEventListener('resize', resize);
     if (window.ResizeObserver) new ResizeObserver(measure).observe(document.body);
     window.addEventListener('load', measure);
+    if (document.fonts) document.fonts.ready.then(measure);
     window.addEventListener('scroll', () => { if (reduced.matches) requestAnimationFrame(render); }, { passive: true });
 
     return {

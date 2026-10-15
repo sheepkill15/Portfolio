@@ -12,8 +12,6 @@
     '<rect x="5" y="8" width="6" height="1"/><rect x="7" y="9" width="2" height="3"/><rect x="5" y="12" width="6" height="2"/></g>' +
     '<rect x="5" y="3" width="2" height="3" fill="#fff" opacity=".45"/></svg>';
 
-  const projectCount = (w) => w.projects.length + (w.projects.length === 1 ? ' level' : ' levels');
-  const worldLabel = (w) => (w.n === 'B' ? 'BONUS' : 'WORLD ' + w.n);
   const tags = (list) => '<ul class="tags" aria-label="Technologies">' + list.map((t) => `<li>${esc(t)}</li>`).join('') + '</ul>';
   const links = (list, name) =>
     '<div class="links">' +
@@ -25,7 +23,7 @@
   $('#unlocks').innerHTML = D.highlights
     .map(
       (h, i) => `<li class="unlock px">${TROPHY}
-        <span class="unlock-tag">${i === 0 ? 'ACHIEVEMENT' : 'TROPHY'} UNLOCKED</span>
+        <span class="unlock-tag">${esc(h.tag)}</span>
         <span class="unlock-big">${esc(h.big)}</span>
         <p>${esc(h.text)}</p></li>`
     )
@@ -44,16 +42,6 @@
     )
     .join('');
 
-  $('#lvl-grid').innerHTML = D.worlds
-    .map(
-      (w) => `<li><a class="lvl-tile px" href="#world-${w.id}" style="--w:${w.color}">
-        <span class="lvl-n">${worldLabel(w)}</span>
-        <span class="lvl-name">${esc(w.name)}</span>
-        <span class="lvl-plain">${esc(w.plain)}</span>
-        <span class="lvl-count">${projectCount(w)}${w.projects.some((p) => p.boss) ? ' · ◆' : ''}</span>
-      </a></li>`
-    )
-    .join('');
 
   function media(p) {
     if (p.shot) {
@@ -67,14 +55,11 @@
 
   $('#worlds').innerHTML = D.worlds
     .map((w) => {
-      let lvl = 0;
-      const id = (p) => `${w.n}-${++lvl}`;
       const bosses = w.projects.filter((p) => p.boss);
       const minis = w.projects.filter((p) => !p.boss);
-      return `<section class="world" id="world-${w.id}" data-theme="${w.id}" data-name="${worldLabel(w)} · ${esc(w.name)}" style="--w:${w.color}">
+      return `<section class="world" id="world-${w.id}" data-theme="${w.id}" data-name="${esc(w.name)}" style="--w:${w.color}">
         <div class="wrap">
           <header class="sec-head">
-            <p class="kicker">${worldLabel(w)}</p>
             <h2>${esc(w.name)}</h2>
             <p class="plain">${esc(w.plain)}</p>
           </header>
@@ -83,7 +68,7 @@
               (p) => `<article class="boss px">
                 <figure class="shot">${media(p)}</figure>
                 <div class="boss-body">
-                  <div class="boss-meta"><span class="badge">◆ BOSS</span><span class="lvl-id">LEVEL ${id(p)}</span></div>
+                  <div class="boss-meta"><span class="badge">◆ BOSS</span></div>
                   <h3>${esc(p.name)}</h3>
                   <p class="pitch">${esc(p.pitch)}</p>
                   <ul class="loot">${p.loot.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
@@ -96,7 +81,6 @@
           ${minis.length ? `<ul class="minis">${minis
             .map(
               (p) => `<li class="mini px">
-                <span class="lvl-id">LEVEL ${id(p)}</span>
                 <h3>${esc(p.name)}</h3>
                 <p>${esc(p.pitch)}</p>
                 ${tags(p.tags)}
@@ -247,6 +231,7 @@
 
   /* ---------- HUD: depth, progress, active link ---------- */
 
+  const DAYS_CODING = Math.round((Date.now() - new Date(D.person.startedCoding)) / 864e5);
   const depthM = $('#depth-m'), depthName = $('#depth-name'), bar = $('#hud-bar'), hud = $('#hud');
   const navLinks = $$('.hud-nav a');
   let ticking = false, minerFrame = 0, lastY = 0;
@@ -256,7 +241,8 @@
     const y = window.scrollY;
     const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const p = Math.min(1, y / max);
-    depthM.textContent = String(Math.round(y / 6)).padStart(4, '0');
+    // Depth is measured in days of programming: the bottom of the page is today.
+    depthM.textContent = String(Math.round(p * DAYS_CODING)).padStart(4, '0');
     const probe = y + window.innerHeight * 0.4;
     let cur = null;
     for (const s of $$('#game [data-theme]')) if (s.getBoundingClientRect().top + y <= probe) cur = s;
@@ -357,13 +343,35 @@
 
   /* ---------- ↑↑↓↓←→←→BA ---------- */
 
+  // Each correct next key pops up as a little keycap at the bottom of the screen, so the code can be
+  // stumbled upon (a stray ↑ while scrolling) without the page ever announcing it.
   const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-  let pos = 0;
+  const LABELS = { ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', b: 'B', a: 'A' };
+  const combo = document.createElement('div');
+  combo.className = 'combo';
+  combo.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(combo);
+  let pos = 0, hideTimer = 0;
+
+  function showCombo(n, done) {
+    combo.innerHTML = code.slice(0, n).map((k, i) => `<span class="cap${i === n - 1 ? ' new' : ''}">${LABELS[k]}</span>`).join('');
+    combo.classList.toggle('done', done);
+    combo.classList.add('show');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => combo.classList.remove('show'), done ? 1600 : 900);
+  }
+
   document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (e.target.closest && e.target.closest('input, textarea')) return;
     const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-    pos = k === code[pos] ? pos + 1 : k === code[0] ? 1 : 0;
-    if (pos === code.length) {
+    if (k === code[pos]) pos++;
+    else if (k === 'ArrowUp' && pos === 2) return; // ↑↑↑ still counts as the start
+    else pos = k === code[0] ? 1 : 0;
+    if (!pos) return;
+    const done = pos === code.length;
+    showCombo(pos, done);
+    if (done) {
       pos = 0;
       const g = scene.gold();
       paint(avatar, SPRITES.front, g);

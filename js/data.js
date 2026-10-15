@@ -10,6 +10,7 @@ window.PORTFOLIO = {
     role: 'Full-Stack Software Engineer',
     spec: 'B2B Products & AI Systems',
     location: 'Târgu Mureș, Romania',
+    startedCoding: '2019-09-01', // start of high school; the depth meter counts days from here
     email: 'simonarons15@gmail.com',
     resume: 'assets/Simon_Aron_Resume.pdf',
     links: [
@@ -32,9 +33,10 @@ window.PORTFOLIO = {
   formEndpoint: 'https://formspree.io/f/xnpjlpqy',
 
   highlights: [
-    { big: '1.5 yrs', text: 'as the sole full-stack engineer on an AI-first B2B CRM/ERP: Rails, React, TypeScript and PostgreSQL, end to end' },
-    { big: '10th', text: 'internationally at the Nemes Tihamér programming competition (2022)' },
-    { big: '38th', text: 'globally at the Cloudflight Coding Contest (2024)' },
+    { big: '7 yrs', tag: 'HOBBY PROJECTS', text: 'of building personal projects since high school, from Minecraft plugins to compilers and synth firmware' },
+    { big: '2 yrs', tag: 'WORK EXPERIENCE', text: 'as the sole full-stack engineer on an AI-first B2B CRM/ERP: Rails, React, TypeScript and PostgreSQL, end to end' },
+    { big: '10th', tag: 'TROPHY UNLOCKED', text: 'internationally at the Nemes Tihamér programming competition (2022)' },
+    { big: '38th', tag: 'TROPHY UNLOCKED', text: 'globally at the Cloudflight Coding Contest (2024)' },
   ],
 
   experience: [
@@ -44,7 +46,7 @@ window.PORTFOLIO = {
       dates: 'Oct 2024 – Present',
       active: true,
       bullets: [
-        'Served as the sole full-stack developer for 1.5 years on an AI-first B2B CRM/ERP, owning Rails, React, TypeScript and PostgreSQL end-to-end and working directly with clients.',
+        'Served as the sole full-stack developer for 2 years on an AI-first B2B CRM/ERP, owning Rails, React, TypeScript and PostgreSQL end-to-end and working directly with clients.',
         'Built a sandboxed AI agent able to perform any action available to the current user; generated its callable TypeScript/JavaScript API from YARD-documented Rails services.',
         'Implemented customizable role-based access control (RBAC) and interactive approval for state-changing actions across background processes and foreground WebSockets using IPC.',
         'Improved AI-agent performance by replacing web API communication between the agent worker and main server with IPC and pipes, eliminating the need for networking.',
@@ -289,8 +291,8 @@ window.PORTFOLIO = {
         },
         {
           id: 'pixeljump', name: 'Pixel Jump',
-          pitch: 'A small arcade game written in Java.',
-          tags: ['Java'],
+          pitch: 'A multiplayer minigame plugin for Minecraft servers, with in-game commands to set up, start and run matches.',
+          tags: ['Java', 'Spigot', 'Minecraft'],
           links: [{ label: 'Source', url: 'https://github.com/sheepkill15/pixel-jump' }],
         },
       ],
